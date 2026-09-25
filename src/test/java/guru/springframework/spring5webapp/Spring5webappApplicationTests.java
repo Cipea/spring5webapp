@@ -1,16 +1,27 @@
 package guru.springframework.spring5webapp;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import guru.springframework.spring5webapp.repositories.BookRepository;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 @SpringBootTest
 public class Spring5webappApplicationTests {
 
+	@Autowired
+    BookRepository bookRepository;
+
 	@Test
-	public void contextLoads() {
+	void testBookRepository() {
+		long count = bookRepository.count();
+
+		assertThat(count).isGreaterThan(0);
+	}
+
+	@Test
+	void contextLoads() {
 	}
 
 }
