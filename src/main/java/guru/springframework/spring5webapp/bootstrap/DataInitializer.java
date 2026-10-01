@@ -3,11 +3,13 @@ package guru.springframework.spring5webapp.bootstrap;
 import guru.springframework.spring5webapp.domain.Book;
 import guru.springframework.spring5webapp.repositories.BookRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 /**
  * Created by jt on 6/12/21.
  */
+@Profile({"local", "default"})
 @Component
 public class DataInitializer implements CommandLineRunner {
 
@@ -19,6 +21,7 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        bookRepository.deleteAll();
         Book bookDDD = new Book("Domain Driven Design", "123", "RandomHouse");
 
         System.out.println("Id: " + bookDDD.getId() );
