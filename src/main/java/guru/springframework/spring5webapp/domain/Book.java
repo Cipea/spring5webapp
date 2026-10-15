@@ -29,7 +29,6 @@ public class Book {
         this.title = title;
         this.isbn = isbn;
         this.publisher = publisher;
-        this.authorId = authorId;
     }
 
     @Override
