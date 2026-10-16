@@ -1,6 +1,8 @@
 package guru.springframework.spring5webapp.bootstrap;
 
+import guru.springframework.spring5webapp.domain.AuthorUuid;
 import guru.springframework.spring5webapp.domain.Book;
+import guru.springframework.spring5webapp.repositories.AuthorUuidRepository;
 import guru.springframework.spring5webapp.repositories.BookRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
@@ -15,8 +17,11 @@ public class DataInitializer implements CommandLineRunner {
 
     private final BookRepository bookRepository;
 
-    public DataInitializer(BookRepository bookRepository) {
+    private final AuthorUuidRepository authorUuidRepository;
+
+    public DataInitializer(BookRepository bookRepository, AuthorUuidRepository authorUuidRepository) {
         this.bookRepository = bookRepository;
+        this.authorUuidRepository = authorUuidRepository;
     }
 
     @Override
@@ -37,6 +42,12 @@ public class DataInitializer implements CommandLineRunner {
             System.out.println("Book Id: " + book.getId());
             System.out.println("Book Title: " + book.getTitle());
         });
+
+        AuthorUuid authorUuid = new AuthorUuid();
+        authorUuid.setFirstName("Joe");
+        authorUuid.setLastName("Buck");
+        AuthorUuid savedAuthor = authorUuidRepository.save(authorUuid);
+        System.out.printf("Saved Author UUID: " + savedAuthor.getId());
 
     }
 }
