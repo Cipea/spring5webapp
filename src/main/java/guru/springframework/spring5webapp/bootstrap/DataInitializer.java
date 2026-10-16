@@ -2,8 +2,10 @@ package guru.springframework.spring5webapp.bootstrap;
 
 import guru.springframework.spring5webapp.domain.AuthorUuid;
 import guru.springframework.spring5webapp.domain.Book;
+import guru.springframework.spring5webapp.domain.BookUuid;
 import guru.springframework.spring5webapp.repositories.AuthorUuidRepository;
 import guru.springframework.spring5webapp.repositories.BookRepository;
+import guru.springframework.spring5webapp.repositories.BookUuidRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -16,12 +18,13 @@ import org.springframework.stereotype.Component;
 public class DataInitializer implements CommandLineRunner {
 
     private final BookRepository bookRepository;
-
     private final AuthorUuidRepository authorUuidRepository;
+    private final BookUuidRepository bookUuidRepository;
 
-    public DataInitializer(BookRepository bookRepository, AuthorUuidRepository authorUuidRepository) {
+    public DataInitializer(BookRepository bookRepository, AuthorUuidRepository authorUuidRepository,  BookUuidRepository bookUuidRepository) {
         this.bookRepository = bookRepository;
         this.authorUuidRepository = authorUuidRepository;
+        this.bookUuidRepository = bookUuidRepository;
     }
 
     @Override
@@ -48,6 +51,14 @@ public class DataInitializer implements CommandLineRunner {
         authorUuid.setLastName("Buck");
         AuthorUuid savedAuthor = authorUuidRepository.save(authorUuid);
         System.out.printf("Saved Author UUID: " + savedAuthor.getId());
+
+        BookUuid bookUuid = new BookUuid();
+        bookUuid.setTitle("Domain Driven Design");
+        bookUuid.setIsbn("123");
+        bookUuid.setPublisher("RandomHouse");
+        BookUuid savedBookUuid = bookUuidRepository.save(bookUuid);
+        System.out.printf("Saved Book UUID: " + savedBookUuid.getId());
+
 
     }
 }
